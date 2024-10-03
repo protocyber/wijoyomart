@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import tailwindLogo from '@/public/images/tailwind-mark.svg'
 
 const Login = () => {
 	return (
@@ -9,8 +10,9 @@ const Login = () => {
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<Image
 					className="mx-auto h-10 w-auto"
-					src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-					alt="Your Company"
+					src={tailwindLogo}
+					alt="Wijoyo Mart"
+                    height={10}
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Sign in to your account
