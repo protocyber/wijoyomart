@@ -3,7 +3,7 @@
 import React from 'react'
 import {Button} from '@/components/ui/button'
 import Image from 'next/image'
-import logo from '@/public/images/wijoyomart.png'
+import logo from '@/public/images/logo.png'
 
 import {z} from 'zod'
 import {useForm} from 'react-hook-form'
