@@ -14,7 +14,7 @@ const Sidebar = ({ user }: SidebarProps) => {
   return (
     <aside className="sidebar">
       <nav className="flex flex-col gap-4">
-        <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
+        <Link href="/public" className="mb-12 cursor-pointer flex items-center gap-2">
           <Image
             src="/images/logo.png"
             width={34}

@@ -3,14 +3,14 @@
 import React from 'react'
 import {Button} from '@/components/ui/button'
 import Image from 'next/image'
-import logo from '@/public/images/logo.png'
-
 import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Form} from '@/components/ui/form'
 import CustomField from '@/components/CustomField'
 import {authFormSchema} from '@/lib/utils'
+import {signInWithEmailAndPassword} from '@firebase/auth'
+import {auth} from '@/lib/firebase'
 
 
 const Login = () => {
@@ -25,10 +25,18 @@ const Login = () => {
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
+        // console.log(values)
+        const {email, password} = values
+
+        try {
+            console.log(auth)
+            await signInWithEmailAndPassword(auth, email, password)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (
@@ -36,11 +44,11 @@ const Login = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
                 <div className="rounded-full bg-white p-2 mx-auto w-auto inline-block">
                     <Image
-                        className="h-128 w-auto rounded-full"
-                        src={logo}
+                        className="rounded-full"
+                        src="/images/logo.png"
                         alt="Wijoyo Mart"
-                        height={128}
                         width={128}
+                        height={128}
                     />
                 </div>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-300">
