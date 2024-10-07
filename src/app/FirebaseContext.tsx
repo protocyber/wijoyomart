@@ -4,7 +4,13 @@ import React, {useEffect, useState} from 'react'
 import {onAuthStateChanged, User} from '@firebase/auth'
 import {auth} from '@/lib/firebase'
 
-const FirebaseContext = React.createContext<{ user: User | null, isLoading: boolean } | null>(null)
+export type FirebaseContextType = {
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    isLoading: boolean;
+}
+
+const FirebaseContext = React.createContext<FirebaseContextType>({} as FirebaseContextType)
 
 export const FirebaseProvider = ({children}: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null)
@@ -19,7 +25,7 @@ export const FirebaseProvider = ({children}: { children: React.ReactNode }) => {
     }, [])
 
     return (
-        <FirebaseContext.Provider value={{user, isLoading}}>
+        <FirebaseContext.Provider value={{user, setUser, isLoading}}>
             {children}
         </FirebaseContext.Provider>
     )

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, {useContext} from 'react'
 import {Button} from '@/components/ui/button'
 import Image from 'next/image'
 import {z} from 'zod'
@@ -11,6 +11,8 @@ import CustomField from '@/components/CustomField'
 import {authFormSchema} from '@/lib/utils'
 import {signInWithEmailAndPassword} from '@firebase/auth'
 import {auth} from '@/lib/firebase'
+import {useRouter} from 'next/navigation'
+import FirebaseContext from '@/app/FirebaseContext'
 
 
 const Login = () => {
@@ -24,6 +26,8 @@ const Login = () => {
             password: ''
         }
     })
+    const router = useRouter()
+    const {setUser} = useContext(FirebaseContext)
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
@@ -32,8 +36,10 @@ const Login = () => {
         const {email, password} = values
 
         try {
-            console.log(auth)
-            await signInWithEmailAndPassword(auth, email, password)
+            await signInWithEmailAndPassword(auth, email, password).then(userCredential => {
+                setUser(userCredential.user)
+                router.push('/')
+            })
         } catch (err) {
             console.error(err)
         }
@@ -42,8 +48,9 @@ const Login = () => {
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
-                <div className="rounded-full bg-white p-2 mx-auto w-auto inline-block">
+                <div className="rounded-full bg-white p-2 mx-auto inline-block">
                     <Image
+                        priority
                         className="rounded-full"
                         src="/images/logo.png"
                         alt="Wijoyo Mart"
