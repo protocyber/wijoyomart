@@ -2,7 +2,7 @@
 // firebase.config.js
 
 import {initializeApp} from 'firebase/app'
-import {getAuth as getFirebaseAuth} from 'firebase/auth'
+import {getAuth} from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,4 +17,6 @@ const firebaseConfig = {
 // console.log(firebaseConfig)
 
 const app = initializeApp(firebaseConfig)
-export const auth = getFirebaseAuth(app)
+const auth = getAuth(app)
+
+export {auth}

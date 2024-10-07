@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useContext} from 'react'
+import React, {useState} from 'react'
 import {Button} from '@/components/ui/button'
 import Image from 'next/image'
 import {z} from 'zod'
@@ -12,7 +12,6 @@ import {authFormSchema} from '@/lib/utils'
 import {signInWithEmailAndPassword} from '@firebase/auth'
 import {auth} from '@/lib/firebase'
 import {useRouter} from 'next/navigation'
-import FirebaseContext from '@/app/FirebaseContext'
 
 
 const Login = () => {
@@ -26,22 +25,19 @@ const Login = () => {
             password: ''
         }
     })
+    const [error, setError] = useState('')
     const router = useRouter()
-    const {setUser} = useContext(FirebaseContext)
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        // console.log(values)
+
+    const handleLogin = async (values: z.infer<typeof formSchema>) => {
+        setError("")
+
         const {email, password} = values
-
         try {
-            await signInWithEmailAndPassword(auth, email, password).then(userCredential => {
-                setUser(userCredential.user)
-                router.push('/')
-            })
+            await signInWithEmailAndPassword(auth, email, password)
+            router.push("/")
         } catch (err) {
-            console.error(err)
+            setError((err as Error).message)
         }
     }
 
@@ -64,8 +60,13 @@ const Login = () => {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                {error && (
+                    <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm dark:bg-red-900 dark:text-red-300">
+                        {error}
+                    </div>
+                )}
                 <Form {...form}>
-                    <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="space-y-6" onSubmit={form.handleSubmit(handleLogin)}>
                         <CustomField control={form.control} name="email" label="Email" placeholder="Email"/>
                         <CustomField control={form.control} name="password" label="Password" placeholder="Password"/>
                         <div>

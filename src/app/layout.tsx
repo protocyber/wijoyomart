@@ -2,7 +2,6 @@ import type {Metadata} from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import {ThemeProvider} from '@/components/theme-provider'
-import {FirebaseProvider} from '@/app/FirebaseContext'
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -30,16 +29,14 @@ export default function RootLayout({
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        <FirebaseProvider>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
-            </ThemeProvider>
-        </FirebaseProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+        >
+            {children}
+        </ThemeProvider>
         </body>
         </html>
     )

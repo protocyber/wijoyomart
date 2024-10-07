@@ -1,19 +1,38 @@
 'use client'
 
-import React, {useContext} from 'react'
+import React, {useEffect, useState} from 'react'
 import Sidebar from '@/components/Sidebar'
 import Image from 'next/image'
 import MobileNav from '@/components/MobileNav'
-import FirebaseContext from '@/app/FirebaseContext'
 import {useRouter} from 'next/navigation'
+import {auth} from '@/lib/firebase'
+import {User as FirebaseUser} from 'firebase/auth'
 
 function Layout({children}: { children: React.ReactNode }) {
-    const user = {} as User
+    const [firebaseUser, setUser] = useState<FirebaseUser | null>(null)
     const router = useRouter()
-    const {user: firebaseUser} = useContext(FirebaseContext)
+    const user = {} as User
+
+    useEffect(() => {
+        // Listen to auth state changes
+        const unsubscribe = auth.onAuthStateChanged((user: FirebaseUser | null) => {
+            console.log('auth state changed bro')
+            if (user) {
+                setUser(user) // Set user if logged in
+            } else {
+                // Redirect to login if not authenticated
+                router.push('/login')
+            }
+        })
+
+        // Cleanup the listener
+        return () => unsubscribe()
+    }, [router])
+
 
     if (!firebaseUser) {
-        router.push('/login')
+        // You can show a loading state while checking authentication
+        return <div>Loading...</div>
     }
 
     return (
