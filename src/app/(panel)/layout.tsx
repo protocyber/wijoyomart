@@ -49,7 +49,9 @@ function Layout({children}: { children: React.ReactNode }) {
                         <MobileNav user={user}/>
                     </div>
                 </div>
-                {children}
+                <div>
+                    {children}
+                </div>
             </div>
         </div>
 
