@@ -32,7 +32,11 @@ function Layout({children}: { children: React.ReactNode }) {
 
     if (!firebaseUser) {
         // You can show a loading state while checking authentication
-        return <div>Loading...</div>
+        return <div className='flex h-screen w-full justify-center items-center'>
+            <div className='font-bold'>
+                Loading...
+            </div>
+        </div>
     }
 
     return (
