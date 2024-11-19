@@ -10,7 +10,7 @@ const Logout = () => {
     const handleLogout = async () => {
         try {
             await signOut(auth)
-            router.push('/login') // Redirect to login page after logging out
+            router.push('/api/auth/signout') // Redirect to login page after logging out
         } catch (err) {
             console.error('Failed to log out:', (err as Error).message)
         }

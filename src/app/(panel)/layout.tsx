@@ -1,39 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import MobileNav from '@/components/MobileNav';
 import Sidebar from '@/components/Sidebar';
 import Image from 'next/image';
-import MobileNav from '@/components/MobileNav';
-// import {useRouter} from 'next/navigation'
+import React from 'react';
 import { auth } from '@/lib/auth';
-// import {auth} from '@/lib/firebase'
-// import {User as FirebaseUser} from 'firebase/auth'
 
 async function Layout({ children }: { children: React.ReactNode; }) {
     // const [user, setUser] = useState<User>();
     const session = await auth();
     const user: User = session!.user as User
-
-    // useEffect(() => {
-    //     const a = async () => {
-    //         const session = await auth();
-    //         console.log(session)
-    //         if (session)
-    //             setUser(session.user as User);
-    //     };
-        //     // Listen to auth state changes
-        //     const unsubscribe = auth.onAuthStateChanged((user: FirebaseUser | null) => {
-        //         console.log('auth state changed bro')
-        //         if (user) {
-        //             setUser(user) // Set user if logged in
-        //         } else {
-        //             // Redirect to login if not authenticated
-        //             router.push('/login')
-        //         }
-    //     a();
-    // }, []);
-
-    //     // Cleanup the listener
-    //     return () => unsubscribe()
-    // }, [router])
 
     if (!session) {
         // You can show a loading state while checking authentication
