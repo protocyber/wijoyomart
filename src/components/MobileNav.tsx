@@ -20,7 +20,7 @@ const MobileNav = ({user}: MobileNavProps) => {
     const pathname = usePathname()
 
     return (
-        <section className="w-fulll max-w-[264px]">
+        <section className="w-full max-w-[264px]">
             <Sheet>
                 <SheetTrigger>
                     <Image
@@ -32,14 +32,14 @@ const MobileNav = ({user}: MobileNavProps) => {
                     />
                 </SheetTrigger>
                 <SheetContent side="left" className="border-none bg-white">
-                    <Link href="/public" className="cursor-pointer flex items-center gap-1 px-4">
+                    <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">
                         <Image
-                            src="/icons/logo.svg"
+                            src="/images/logo.png"
                             width={34}
                             height={34}
-                            alt="Horizon logo"
+                            alt="Logo"
                         />
-                        <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">Horizon</h1>
+                        <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">WijoyoMart</h1>
                     </Link>
                     <div className="mobilenav-sheet">
                         <SheetClose asChild>
