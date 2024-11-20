@@ -1,8 +1,13 @@
 // import { type NextRequest, NextResponse } from 'next/server';
-import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
+import { 
+    // NextRequestWithAuth,
+    withAuth
+} from 'next-auth/middleware';
 
 export default withAuth(
-	function middleware(request: NextRequestWithAuth) {
+	function middleware(
+        // request: NextRequestWithAuth
+    ) {
 		// const nextResponse = NextResponse.next();
 
 		// // if (!user) {

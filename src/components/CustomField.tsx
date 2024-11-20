@@ -3,6 +3,7 @@ import {FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessag
 import {Input} from '@/components/ui/input'
 
 type CustomField = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: any;
     name: string;
     label: string;
